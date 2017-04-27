@@ -1,5 +1,6 @@
 package parqueo.backend.modelos.registros;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.IsoFields;
@@ -16,7 +17,7 @@ import parqueo.backend.modelos.personas.Cliente;
  *
  * Changes History
  */
-public class RegistroVehiculo {
+public class RegistroVehiculo implements Serializable {
 
 	private LocalDate fechaIngreso;
 	private double horasParqueadas;

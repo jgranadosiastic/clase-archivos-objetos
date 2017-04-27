@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 import parqueo.backend.modelos.registros.RegistroVehiculo;
+import java.io.Serializable;
 
 /**
  * PracticaGUI
@@ -15,7 +16,7 @@ import parqueo.backend.modelos.registros.RegistroVehiculo;
  *
  * Changes History
  */
-public class Cliente extends Persona {
+public class Cliente extends Persona implements Serializable {
 
 	private String NIT;
 	private List<RegistroVehiculo> registros;

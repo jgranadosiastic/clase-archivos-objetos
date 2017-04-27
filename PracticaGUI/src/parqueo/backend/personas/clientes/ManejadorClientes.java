@@ -1,6 +1,14 @@
 package parqueo.backend.personas.clientes;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import parqueo.backend.datos.ManejadorDatos;
 import parqueo.backend.excepciones.InputsVaciosException;
 import parqueo.backend.excepciones.ValidacionExcepcion;
 import parqueo.backend.modelos.parqueo.Parqueo;
@@ -18,9 +26,16 @@ import parqueo.backend.personas.ManejadorPersonas;
  * Changes History
  */
 public class ManejadorClientes extends ManejadorPersonas {
+	
+	private static final String ARCHIVO_CLIENTES = "clientes.dat";
+	private File archivoClientes;
+	private ManejadorDatos<Persona> manejadorDatos;
 
 	public ManejadorClientes(Parqueo parqueo) {
 		super(parqueo);
+		archivoClientes = new File(ARCHIVO_CLIENTES);
+		manejadorDatos = new ManejadorDatos<>();
+		cargarListadoClientes();
 	}
 
 	public List<Persona> buscarClientes() {
@@ -41,6 +56,11 @@ public class ManejadorClientes extends ManejadorPersonas {
 		}
 		Cliente nuevo = new Cliente(NIT, CUI, nombre);
 		this.agregarPersona(nuevo, getParqueo().getClientes());
+		try {
+			manejadorDatos.guardarLista(getParqueo().getClientes(), archivoClientes);
+		} catch (IOException ex) {
+			//error archivo
+		}
 		return nuevo;
 	}
 
@@ -57,6 +77,11 @@ public class ManejadorClientes extends ManejadorPersonas {
 		cliente.setNIT(modificado.getNIT());
 		cliente.setCUI(modificado.getCUI());
 		cliente.setNombre(modificado.getNombre());
+		try {
+			manejadorDatos.guardarLista(getParqueo().getClientes(), archivoClientes);
+		} catch (IOException ex) {
+			Logger.getLogger(ManejadorClientes.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		return cliente;
 	}
 
@@ -68,5 +93,13 @@ public class ManejadorClientes extends ManejadorPersonas {
 			}
 		}
 		return null;
+	}
+	
+	public void cargarListadoClientes() {
+		try {
+			getParqueo().getClientes().addAll(manejadorDatos.cargarLista(archivoClientes));
+		} catch (IOException ex) {
+			Logger.getLogger(ManejadorClientes.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 }

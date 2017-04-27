@@ -2,6 +2,7 @@ package parqueo.backend.modelos.personas;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 
 /**
  * PracticaGUI
@@ -11,7 +12,7 @@ import java.beans.PropertyChangeSupport;
  *
  * Changes History
  */
-public class Persona {
+public class Persona implements Serializable {
 	private String CUI;
 	private String nombre;
 	private String direccion;

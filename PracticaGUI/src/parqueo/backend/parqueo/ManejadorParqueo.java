@@ -1,10 +1,12 @@
 package parqueo.backend.parqueo;
 
+import java.io.File;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import parqueo.backend.datos.ManejadorDatos;
 import parqueo.backend.excepciones.ValidacionExcepcion;
 import parqueo.backend.modelos.parqueo.Parqueo;
 import parqueo.backend.modelos.personas.Cliente;
@@ -23,9 +25,14 @@ import parqueo.backend.personas.clientes.ManejadorClientes;
 public class ManejadorParqueo {
 
 	private Parqueo parqueo;
+	private static final String ARCHIVO_REGISTROS = "registrosVehiculo.dat";
+	private File archivoRegistros;
+	private ManejadorDatos<RegistroVehiculo> manejadorDatos;
 
 	public ManejadorParqueo(Parqueo parqueo) {
 		this.parqueo = parqueo;
+		manejadorDatos = new ManejadorDatos<>();
+		archivoRegistros = new File(ARCHIVO_REGISTROS);
 	}
 
 	public Parqueo getParqueo() {

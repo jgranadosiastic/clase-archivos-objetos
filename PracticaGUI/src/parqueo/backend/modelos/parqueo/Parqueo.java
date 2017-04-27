@@ -60,7 +60,7 @@ public class Parqueo {
 		registros = new ArrayList<>();
 		clientes = new ArrayList<>();
 		empleados = new ArrayList<>();
-		inicializarData();
+		//inicializarData();
 	}
 
 	private void inicializarData() {
