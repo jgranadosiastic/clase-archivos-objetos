@@ -3,8 +3,6 @@ package parqueo.backend.modelos.registros;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.IsoFields;
-import java.time.temporal.TemporalUnit;
 import parqueo.backend.modelos.parqueo.Parqueo;
 import parqueo.backend.modelos.personas.Cliente;
 
@@ -24,9 +22,13 @@ public class RegistroVehiculo implements Serializable {
 	private double subtotal;
 	private boolean conDescuento;
 	private double total;
-	private Cliente cliente;
+	//no enviamos el objeto cliente para evitar copias
+	private transient Cliente cliente;
 	private String placa;
 	private int tipoVehiculo;
+	//usamos esta llave para enlazar el cliente con el 
+	//registro cuando cargamos desde archivo
+	private String nitCliente;
 
 	public LocalDate getFechaIngreso() {
 		return fechaIngreso;
@@ -73,6 +75,9 @@ public class RegistroVehiculo implements Serializable {
 	}
 
 	public void setCliente(Cliente cliente) {
+		if (cliente != null) {
+			this.nitCliente = cliente.getNIT();
+		}
 		this.cliente = cliente;
 	}
 
@@ -116,4 +121,10 @@ public class RegistroVehiculo implements Serializable {
 	public boolean esCerrado() {
 		return this.horasParqueadas > 0;
 	}
+
+	public String getNitCliente() {
+		return nitCliente;
+	}
+	
+	
 }

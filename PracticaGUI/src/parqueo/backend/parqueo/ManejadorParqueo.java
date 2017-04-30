@@ -1,12 +1,16 @@
 package parqueo.backend.parqueo;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import parqueo.backend.datos.ManejadorDatos;
+import parqueo.backend.datos.ManejadorDatosParqueo;
 import parqueo.backend.excepciones.ValidacionExcepcion;
 import parqueo.backend.modelos.parqueo.Parqueo;
 import parqueo.backend.modelos.personas.Cliente;
@@ -28,11 +32,15 @@ public class ManejadorParqueo {
 	private static final String ARCHIVO_REGISTROS = "registrosVehiculo.dat";
 	private File archivoRegistros;
 	private ManejadorDatos<RegistroVehiculo> manejadorDatos;
+	private ManejadorClientes manejadorClientes;
+	private ManejadorDatosParqueo manejadorDatosParqueo;
 
 	public ManejadorParqueo(Parqueo parqueo) {
 		this.parqueo = parqueo;
 		manejadorDatos = new ManejadorDatos<>();
 		archivoRegistros = new File(ARCHIVO_REGISTROS);
+		manejadorClientes = new ManejadorClientes(parqueo);
+		manejadorDatosParqueo = new ManejadorDatosParqueo();
 	}
 
 	public Parqueo getParqueo() {
@@ -72,6 +80,14 @@ public class ManejadorParqueo {
 		registro.setTipoVehiculo(tipoVehiculo);
 		parqueo.ingresarVehiculo(registro);
 		cliente.getRegistros().add(registro);
+		try {
+			//Guardamos los datos de la lista de registros
+			manejadorDatos.guardarLista(getParqueo().getRegistros(), archivoRegistros);
+			//guardamos datos del parqueo
+			manejadorDatosParqueo.guardarDatos(parqueo);
+		} catch (IOException ex) {
+			Logger.getLogger(ManejadorParqueo.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		return registro;
 	}
 
@@ -240,5 +256,19 @@ public class ManejadorParqueo {
 			subtotal += tarifaFraccion;
 		}
 		return subtotal;
+	}
+	
+	public void cargarListadoRegistros(){
+		try {
+			//cargamos los registros desde el archivo
+			getParqueo().setRegistros(manejadorDatos.cargarLista(archivoRegistros));
+			//se busca el cliente relacionado con cada registro. 
+			//En este caso usamos una busqueda secuencial pero lo ideal es usar busqueda binaria
+			for (RegistroVehiculo registro : getParqueo().getRegistros()) {
+				registro.setCliente(manejadorClientes.buscarPorNIT(registro.getNitCliente()));
+			}
+		} catch (IOException ex) {
+			Logger.getLogger(ManejadorParqueo.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 }

@@ -106,6 +106,10 @@ public class ListadoRegistrosInternalFrame extends javax.swing.JInternalFrame {
           columnBinding.setColumnName("Cliente");
           columnBinding.setColumnClass(String.class);
           columnBinding.setEditable(false);
+          columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cliente.nombre}"));
+          columnBinding.setColumnName("Nombre");
+          columnBinding.setColumnClass(String.class);
+          columnBinding.setEditable(false);
           columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${placa}"));
           columnBinding.setColumnName("Placa");
           columnBinding.setColumnClass(String.class);
@@ -130,13 +134,6 @@ public class ListadoRegistrosInternalFrame extends javax.swing.JInternalFrame {
           columnBinding.setColumnName("Total");
           columnBinding.setColumnClass(Double.class);
           columnBinding.setEditable(false);
-          columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${estado}"));
-          columnBinding.setColumnName("Estado");
-          columnBinding.setColumnClass(String.class);
-          columnBinding.setEditable(false);
-          columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${antiguedad}"));
-          columnBinding.setColumnName("Antiguedad");
-          columnBinding.setColumnClass(Boolean.class);
           bindingGroup.addBinding(jTableBinding);
           jTableBinding.bind();
           jScrollPane1.setViewportView(jTable1);

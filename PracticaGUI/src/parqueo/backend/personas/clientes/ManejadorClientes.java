@@ -1,10 +1,7 @@
 package parqueo.backend.personas.clientes;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +32,6 @@ public class ManejadorClientes extends ManejadorPersonas {
 		super(parqueo);
 		archivoClientes = new File(ARCHIVO_CLIENTES);
 		manejadorDatos = new ManejadorDatos<>();
-		cargarListadoClientes();
 	}
 
 	public List<Persona> buscarClientes() {
@@ -97,7 +93,7 @@ public class ManejadorClientes extends ManejadorPersonas {
 	
 	public void cargarListadoClientes() {
 		try {
-			getParqueo().getClientes().addAll(manejadorDatos.cargarLista(archivoClientes));
+			getParqueo().setClientes(manejadorDatos.cargarLista(archivoClientes));
 		} catch (IOException ex) {
 			Logger.getLogger(ManejadorClientes.class.getName()).log(Level.SEVERE, null, ex);
 		}

@@ -41,6 +41,9 @@ public class EscritorioFrame extends javax.swing.JFrame {
 		this.manejadorClientes = new ManejadorClientes(parqueo);
 		this.manejadorEmpleados = new ManejadorEmpleados(parqueo);
 		this.reporteador = new Reporteador(parqueo);
+		//cargamos los listados desde archivos
+		manejadorClientes.cargarListadoClientes();
+		manejadorParqueo.cargarListadoRegistros();
 		//frames
 		listadoClientesFrame = new ListadoClientesInternalFrame(manejadorClientes);
 		listadoRegistrosFrame = new ListadoRegistrosInternalFrame(manejadorParqueo);

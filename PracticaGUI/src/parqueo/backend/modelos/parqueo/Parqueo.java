@@ -2,6 +2,7 @@ package parqueo.backend.modelos.parqueo;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import parqueo.backend.modelos.registros.RegistroVehiculo;
  *
  * Changes History
  */
-public class Parqueo {
+public class Parqueo implements Serializable {
 
 	//Capacidad
 	public static final int CAPACIDAD_MOTOS = 10;
@@ -64,62 +65,62 @@ public class Parqueo {
 	}
 
 	private void inicializarData() {
-		Cliente cliente1 = new Cliente("1111", "111111", "cliente 1");
-		Cliente cliente2 = new Cliente("2222", "222222", "cliente 2");
-		clientes.add(cliente1);
-		clientes.add(cliente2);
-		clientes.add(new Cliente("3333", "333333", "cliente 3"));
-		clientes.add(new Cliente("4444", "444444", "cliente 4"));
-		clientes.add(new Cliente("5555", "555555", "cliente 5"));
-
-		//registro con entrada y salida
-		RegistroVehiculo registro1 = new RegistroVehiculo();
-		registro1.setCliente(cliente1);
-		registro1.setFechaIngreso(LocalDate.parse("2017-04-10"));
-		registro1.setPlaca("m1");
-		registro1.setTipoVehiculo(VEHICULO_MOTO);
-		registro1.setConDescuento(false);
-		registro1.setHorasParqueadas(3);
-		registro1.setSubtotal(15);
-		registro1.setTotal(15);
-		cliente1.setContadorHorasDescuento(3);
-		cliente1.getRegistros().add(registro1);
-		registros.add(registro1);
-		//registro con entrada y salida
-		RegistroVehiculo registro2 = new RegistroVehiculo();
-		registro2.setCliente(cliente2);
-		registro2.setFechaIngreso(LocalDate.parse("2017-04-10"));
-		registro2.setPlaca("cam1");
-		registro2.setTipoVehiculo(VEHICULO_CAMION);
-		registro2.setConDescuento(false);
-		registro2.setHorasParqueadas(6);
-		registro2.setSubtotal(90);
-		registro2.setTotal(90);
-		cliente2.setContadorHorasDescuento(6);
-		cliente2.getRegistros().add(registro2);
-		registros.add(registro2);
-		//registro con entrada y salida
-		RegistroVehiculo registro3 = new RegistroVehiculo();
-		registro3.setCliente(cliente1);
-		registro3.setFechaIngreso(LocalDate.parse("2017-04-11"));
-		registro3.setPlaca("m1");
-		registro3.setTipoVehiculo(VEHICULO_MOTO);
-		registro3.setConDescuento(false);
-		registro3.setHorasParqueadas(0.5);
-		registro3.setSubtotal(3);
-		registro3.setTotal(3);
-		cliente1.setContadorHorasDescuento(6.5);
-		cliente1.getRegistros().add(registro3);
-		registros.add(registro3);
-		//aun en parqueo
-		RegistroVehiculo registro4 = new RegistroVehiculo();
-		registro4.setCliente(cliente2);
-		registro4.setFechaIngreso(LocalDate.parse("2017-04-11"));
-		registro4.setPlaca("c1");
-		registro4.setTipoVehiculo(VEHICULO_CARRO);
-		cliente2.getRegistros().add(registro4);
-		registros.add(registro4);
-		espaciosDisponiblesCarros--;
+//		Cliente cliente1 = new Cliente("1111", "111111", "cliente 1");
+//		Cliente cliente2 = new Cliente("2222", "222222", "cliente 2");
+//		clientes.add(cliente1);
+//		clientes.add(cliente2);
+//		clientes.add(new Cliente("3333", "333333", "cliente 3"));
+//		clientes.add(new Cliente("4444", "444444", "cliente 4"));
+//		clientes.add(new Cliente("5555", "555555", "cliente 5"));
+//
+//		//registro con entrada y salida
+//		RegistroVehiculo registro1 = new RegistroVehiculo();
+//		registro1.setCliente(cliente1);
+//		registro1.setFechaIngreso(LocalDate.parse("2017-04-10"));
+//		registro1.setPlaca("m1");
+//		registro1.setTipoVehiculo(VEHICULO_MOTO);
+//		registro1.setConDescuento(false);
+//		registro1.setHorasParqueadas(3);
+//		registro1.setSubtotal(15);
+//		registro1.setTotal(15);
+//		cliente1.setContadorHorasDescuento(3);
+//		cliente1.getRegistros().add(registro1);
+//		registros.add(registro1);
+//		//registro con entrada y salida
+//		RegistroVehiculo registro2 = new RegistroVehiculo();
+//		registro2.setCliente(cliente2);
+//		registro2.setFechaIngreso(LocalDate.parse("2017-04-10"));
+//		registro2.setPlaca("cam1");
+//		registro2.setTipoVehiculo(VEHICULO_CAMION);
+//		registro2.setConDescuento(false);
+//		registro2.setHorasParqueadas(6);
+//		registro2.setSubtotal(90);
+//		registro2.setTotal(90);
+//		cliente2.setContadorHorasDescuento(6);
+//		cliente2.getRegistros().add(registro2);
+//		registros.add(registro2);
+//		//registro con entrada y salida
+//		RegistroVehiculo registro3 = new RegistroVehiculo();
+//		registro3.setCliente(cliente1);
+//		registro3.setFechaIngreso(LocalDate.parse("2017-04-11"));
+//		registro3.setPlaca("m1");
+//		registro3.setTipoVehiculo(VEHICULO_MOTO);
+//		registro3.setConDescuento(false);
+//		registro3.setHorasParqueadas(0.5);
+//		registro3.setSubtotal(3);
+//		registro3.setTotal(3);
+//		cliente1.setContadorHorasDescuento(6.5);
+//		cliente1.getRegistros().add(registro3);
+//		registros.add(registro3);
+//		//aun en parqueo
+//		RegistroVehiculo registro4 = new RegistroVehiculo();
+//		registro4.setCliente(cliente2);
+//		registro4.setFechaIngreso(LocalDate.parse("2017-04-11"));
+//		registro4.setPlaca("c1");
+//		registro4.setTipoVehiculo(VEHICULO_CARRO);
+//		cliente2.getRegistros().add(registro4);
+//		registros.add(registro4);
+//		espaciosDisponiblesCarros--;
 	}
 
 	public List<RegistroVehiculo> getRegistros() {
@@ -197,4 +198,14 @@ public class Parqueo {
 				break;
 		}
 	}
+
+	public void setRegistros(List<RegistroVehiculo> registros) {
+		this.registros = registros;
+	}
+
+	public void setClientes(List<Persona> clientes) {
+		this.clientes = clientes;
+	}
+	
+	
 }
