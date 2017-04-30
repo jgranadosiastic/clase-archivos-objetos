@@ -1,0 +1,24 @@
+#ant specific
+PracticaGUI/dist/
+PracticaGUI/build/
+
+#netbeans specific
+PracticaGUI/core
+PracticaGUI/nbproject/*
+PracticaGUI/!nbproject/project.properties
+PracticaGUI/!nbproject/project.xml
+
+#java specific
+PracticaGUI/*.class
+
+#general swap/backup files
+PracticaGUI/*.so
+PracticaGUI/*.log
+PracticaGUI/*.out
+PracticaGUI/*~
+PracticaGUI/*.swp
+PracticaGUI/*.DS_Store
+PracticaGUI/*.lock
+
+#dat files
+PracticaGUI/*.dat
